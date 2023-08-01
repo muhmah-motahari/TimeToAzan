@@ -67,12 +67,14 @@ func main (){
 	*/
 	
 	var duration time.Duration
-	if now.Before(sobh) || now.After(magh) {
+	if now.Before(sobh) {
 		duration = sobh.Sub(now)
 	}else if now.Before(zohr) {
 		duration = zohr.Sub(now)
-	}else{
+	}else if now.Before(magh){
 		duration = magh.Sub(now)
+	}else {
+		duration = sobh.AddDate(0,0,1).Sub(now)
 	}
 
 	fmt.Println(strings.TrimRight(duration.Truncate(time.Minute).String(), "0s") + "inutes")
